@@ -1,0 +1,106 @@
+nav.navbar {
+    position: relative;
+    height: 80px; 
+    background-color: transparent; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 0px; 
+}
+
+.Menu {
+    font-size: 30px;
+    font-weight: bold; 
+    letter-spacing: 2px;
+    color: black;
+    padding-left: 8%; 
+}
+
+.other-menu-items {
+    display: flex;
+    gap: 20px; 
+}
+
+.other-menu-items a {
+    text-decoration: none;
+    font-size: 18px;
+    color: gray;
+    transition: color 0.3s ease;
+}
+
+.other-menu-items a:hover {
+    color: black; 
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: white; /* 确保导航栏有一个单独的背景色 */
+}
+
+.main_body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px); /* 确保营销部分占满剩余的页面高度 */
+    background-image: url('image/lawyer.jpg'); /* 背景图片 */
+    background-size: cover; /* 确保图片根据容器的大小进行缩放 */
+    background-position: center; /* 图片居中显示 */
+    background-repeat: no-repeat; /* 禁止图片重复 */
+    background-color: rgba(0, 0, 0, 0.5); /* 背景图片上有透明遮罩 */
+}
+.main_content {
+    background-color: #00264d; /* 深蓝色背景 */
+    color: white;
+    padding: 40px;
+    width: 350px;
+    text-align: left;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.main_content h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.main_content h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #ffcc00; /* 黄色强调 */
+}
+
+.main_content p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #ffcc00;
+}
+
+.main_content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.main_content input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.main_content button {
+    padding: 10px;
+    background-color: #ffcc00;
+    color: #00264d;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.main_content button:hover {
+    background-color: #e6b800;
+}
