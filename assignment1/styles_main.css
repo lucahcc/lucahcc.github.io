@@ -9,16 +9,18 @@ nav.navbar {
 }
 
 .Menu {
-    font-size: 30px;
-    font-weight: bold; 
+    font-size: 25px;
+    font-weight: 300; 
     letter-spacing: 2px;
     color: black;
-    padding-left: 8%; 
+    padding-left: 10%; 
 }
 
 .other-menu-items {
     display: flex;
-    gap: 20px; 
+    gap: 20px;
+    justify-content: flex-end; /* 使菜单项靠右对齐 */
+    padding-right: 20px;
 }
 
 .other-menu-items a {
@@ -36,12 +38,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: white; /* 确保导航栏有一个单独的背景色 */
+    background-color: white; 
 }
 
 .main_body {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: calc(100vh - 80px); /* 确保营销部分占满剩余的页面高度 */
     background-image: url('image/lawyer.jpg'); /* 背景图片 */
@@ -49,31 +51,45 @@ body {
     background-position: center; /* 图片居中显示 */
     background-repeat: no-repeat; /* 禁止图片重复 */
     background-color: rgba(0, 0, 0, 0.5); /* 背景图片上有透明遮罩 */
+    padding-left: 10%
 }
 .main_content {
-    background-color: #00264d; /* 深蓝色背景 */
+    background-color:#0c3c5e; /* 深蓝色背景 */
     color: white;
     padding: 40px;
     width: 350px;
     text-align: left;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    height: 350px;
 }
 
-.main_content h1 {
+
+.title-small {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 350;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+
+.title-large {
+    font-family: 'Poppins', sans-serif;
     font-size: 32px;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-top: 5px;
     margin-bottom: 10px;
 }
 
-.main_content h2 {
-    font-size: 18px;
-    margin-bottom: 5px;
-    color: #ffcc00; /* 黄色强调 */
-}
 
-.main_content p {
+.subtitle {
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
+    font-weight: 350;
+    color: #FFCC00;
     margin-bottom: 20px;
-    color: #ffcc00;
+    font-style: italic;
 }
 
 .main_content form {
@@ -96,9 +112,12 @@ body {
     border: none;
     border-radius: 5px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 350;
+    width: 200px; 
 }
 
 .main_content button:hover {
