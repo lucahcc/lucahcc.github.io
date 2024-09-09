@@ -45,12 +45,12 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: calc(100vh - 80px); /* 确保营销部分占满剩余的页面高度 */
-    background-image: url('image/lawyer.jpg'); /* 背景图片 */
-    background-size: cover; /* 确保图片根据容器的大小进行缩放 */
-    background-position: center; /* 图片居中显示 */
-    background-repeat: no-repeat; /* 禁止图片重复 */
-    background-color: rgba(0, 0, 0, 0.5); /* 背景图片上有透明遮罩 */
+    height: calc(100vh - 80px); 
+    background-image: url('image/lawyer.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-color: rgba(0, 0, 0, 0.5); 
     padding-left: 10%
 }
 .main_content {
@@ -122,4 +122,70 @@ body {
 
 .main_content button:hover {
     background-color: #e6b800;
+}
+
+.features {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #fff;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10%;
+}
+
+.feature_text {
+    width: 30%;
+    text-align: left;
+}
+
+.feature_text h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 350;
+    color: #000000;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.feature_text p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: gray;
+    text-align: left;
+}
+
+.testimonial {
+    padding: 40px 10%;
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
+.testimonial blockquote {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: #000000;;
+    margin: 20px 0;
+}
+
+.testimonial footer {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* 人名部分为黑色粗体 */
+.testimonial footer .name {
+    font-weight: bold; /* 黑体 */
+    color: black; /* 黑色 */
+}
+
+/* 其他文字为灰色 */
+.testimonial footer .title {
+    color: gray; /* 灰色 */
 }
