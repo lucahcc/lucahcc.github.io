@@ -1,33 +1,45 @@
 nav.navbar {
-    position: relative;
-    height: 80px; 
-    background-color: transparent; 
+    position: absolute; /* 静态导航栏，绝对定位 */
+    top: 0;
+    left: 50%; /* 定位到页面的中心 */
+    transform: translateX(-50%); /* 将导航栏水平居中 */
+    width: 1600px; /* 固定宽度 */
+    height: 80px; /* 固定高度 */
+    background-color: white;
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 0 0px; 
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 100px; /* 左右内边距 */
+    padding-right: 100px;
+    font-family: Arial, sans-serif;
 }
+
 
 .Menu {
     font-size: 25px;
-    font-weight: 300; 
+    font-weight: 300;
     letter-spacing: 2px;
     color: black;
-    padding-left: 10%; 
+    font-family: Arial, sans-serif;
+    margin-left: 150px;
 }
 
+
 .other-menu-items {
+    margin-right: 100px;
     display: flex;
     gap: 20px;
     justify-content: flex-end; /* 使菜单项靠右对齐 */
     padding-right: 20px;
+    font-family: Arial, sans-serif;
 }
 
 .other-menu-items a {
     text-decoration: none;
     font-size: 18px;
-    color: gray;
+    color: #c8c8c8;
     transition: color 0.3s ease;
+    font-family: Arial, sans-serif;
 }
 
 .other-menu-items a:hover {
@@ -42,31 +54,52 @@ body {
 }
 
 .main_body {
-    background-attachment: local;
+    position: absolute; /* 静态布局下使用绝对定位 */
+    top: 80px; /* 确保背景在导航栏下面，80px 是导航栏的高度 */
+    left: 50%; /* 将背景居中对齐 */
+    transform: translateX(-50%); /* 水平居中 */
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: calc(100vh - 80px); 
-    background-image: url('image/lawyer.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-color: rgba(0, 0, 0, 0.5); 
-    padding-left: 10%;
+    justify-content: flex-start; /* 静态布局，从左对齐内容 */
+    align-items: center; /* 垂直居中内容 */
+    height: 853px; /* 背景的固定高度 */
+    width: 1600px; /* 背景的固定宽度 */
+    background-image: url('image/lawyer.jpg'); /* 背景图片 */
+    background-size: contain; /* 背景图像的固定大小，不做自适应 */
+    background-position: center center; /* 背景居中显示 */
+    background-repeat: no-repeat; /* 背景图片不重复 */
+    padding-left: 160px; /* 固定的左边距 */
+    overflow: hidden; /* 隐藏溢出内容 */
+    z-index: 0; /* 层级优先，使其位于导航栏下面 */
+    position: relative; /* 为伪元素提供相对定位 */
+    box-sizing: border-box; /* 让内边距包含在宽度和高度之内 */
 }
+.main_body::before {
+    content: ""; /* 添加伪元素的内容 */
+    position: absolute; /* 绝对定位 */
+    top: 0; /* 定位到右上角 */
+    right: 0; /* 定位到右上角 */
+    width: 20%; /* 灰色蒙版的宽度，根据需求调整 */
+    height: 100%; /* 灰色蒙版的高度，根据需求调整 */
+    background-color: rgba(211, 211, 211, 0.03); /* 浅灰色蒙版，透明度为0.5 */
+    z-index: 1; /* 确保蒙版在背景图片之上 */
+    pointer-events: none; /* 允许点击透过蒙版 */
+}
+
 .main_content {
     background-color:#0c3c5e;
     color: white;
     padding: 40px;
     width: 350px;
     text-align: left;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     height: 350px;
+    z-index: 2;
+    font-family: Arial, sans-serif;
 }
 
 
 .title-small {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 18px;
     font-weight: 350;
     color: #FFFFFF;
@@ -75,7 +108,7 @@ body {
 
 
 .title-large {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 32px;
     font-weight: 400;
     color: #FFFFFF;
@@ -85,7 +118,7 @@ body {
 
 
 .subtitle {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px;
     font-weight: 350;
     color: #FFCC00;
@@ -96,6 +129,7 @@ body {
 .main_content form {
     display: flex;
     flex-direction: column;
+    font-family: Arial, sans-serif;
 }
 
 .main_content input {
@@ -104,20 +138,19 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    font-family: Arial, sans-serif;
 }
 
 .main_content button {
-    padding: 10px;
-    background-color: #ffcc00;
-    color: #00264d;
+    padding: 20px,-5px;
+    background-color: #fadd16;
+    color: #000000;
     border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: 'Poppins', sans-serif; 
-    font-weight: 350;
+    font-family: Arial, sans-serif;
+    font-weight: 300;
     width: 200px; 
 }
 
@@ -126,28 +159,34 @@ body {
 }
 
 .features {
-    padding: 60px 0;
+    padding-top: 100px;
     text-align: center;
     background-color: #fff;
+    font-family: Arial, sans-serif;
+    width: 1600px; 
+    margin: 0 auto; 
 }
 
 .feature-set {
     display: flex;
-    justify-content: space-around;
-    padding: 0 10%;
+    justify-content: space-between; 
+    width: 1400px; 
+    margin: 0 auto; 
     margin-bottom: 40px; 
     padding-top: 40px;
+    font-family: Arial, sans-serif;
 }
 
 .feature_text {
-    width: 30%;
+    width: 400px; 
     text-align: left;
     padding-top: 20px;
     margin-bottom: 40px;
+    font-family: Arial, sans-serif;
 }
 
 .feature_text h3 {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 22px;
     font-weight: 350;
     color: #000000;
@@ -156,43 +195,283 @@ body {
 }
 
 .feature_text p {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 18px;
     font-weight: 350;
     color: #909090;
     text-align: left;
 }
 
-.testimonial {
+.slogan {
     text-align: center;
     background-color: #f5f5f5;
-    margin: 200px 0; 
-    padding: 200px 0; 
+    padding: 150px 0; 
+    width: 1600px; 
+    margin: 0 auto; 
 }
 
-.testimonial blockquote {
-    font-family: 'Poppins', sans-serif;
+.slogan blockquote {
+    font-family: Arial, sans-serif;
     font-size: 24px;
     font-weight: 300;
-    color: #000000;;
+    color: #000000;
     margin: 20px 0;
 }
 
-.testimonial footer {
-    margin-top: 5px;
-    font-family: 'Poppins', sans-serif;
+.slogan footer {
+    margin-top: 15px;
+    font-family: Arial, sans-serif;
     font-size: 18px;
     font-weight: 400;
     text-align: center;
+    width: 100%; 
 }
 
-/* 人名部分为黑色粗体 */
-.testimonial footer .name {
-    font-weight: bold; /* 黑体 */
-    color: black; /* 黑色 */
+
+.slogan footer .name {
+    font-weight: bold; 
+    color: black; 
 }
 
-/* 其他文字为灰色 */
-.testimonial footer .title {
-    color: gray; /* 灰色 */
+
+.slogan footer .title {
+    color: gray; 
+}
+
+.pricing-section {
+    position: relative; 
+    width: 1600px;
+    height: 870px; 
+    margin: 0 auto; 
+    background: none; 
+}
+
+.pricing-section::before {
+    content: "";
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    background-image: url('./image/glasses.png'); 
+    background-attachment: fixed;
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    filter: grayscale(100%); 
+    opacity: 0.3; 
+    z-index: -1; 
+}
+
+/* Plan title */
+.plan-title {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 350;
+}
+.pricing-title {
+    font-family: Arial, sans-serif;
+    width: 100%; 
+    text-align: center; 
+    padding: 20px 0; 
+    z-index: 4;
+}
+.pricing-title .subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 18px;  
+    font-style: normal; 
+    font-weight: 300;
+    text-align: center;  
+    color: #909090;  
+}
+.pricing-title h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000;
+    margin: 0; /
+}
+
+.pricing-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1600px;
+    display: flex;
+    justify-content: space-around; 
+    padding: 20px 0px; 
+    gap: 20px;
+}
+.pricing-plan { 
+    background-color: #F8F8F8; 
+    background-image:
+        linear-gradient(to top left, transparent calc(50% - 0.4px), rgba(0, 0, 0, 0.1) 50%, transparent calc(50% + 0.4px)),
+        linear-gradient(to top right, transparent calc(50% - 0.4px), rgba(0, 0, 0, 0.1) 50%, transparent calc(50% + 0.4px)),
+        linear-gradient(to bottom, transparent calc(50% - 0.4px), rgba(0, 0, 0, 0.1) 50%, transparent calc(50% + 0.4px)),
+        linear-gradient(to right, transparent calc(50% - 0.4px), rgba(0, 0, 0, 0.1) 50%, transparent calc(50% + 0.4px));
+    background-size: 20px 20px, 20px 20px, 10px 10px, 10px 10px; 
+    background-position: 10px 0, 10px 0, 0 10px, 0 0; 
+
+    border-radius: 8px;
+    text-align: center;
+    padding: 30px;
+    width: 300px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.plan-features {
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.5; /* 调整行间距，让内容看起来更有间距 */
+}
+.plan-title {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 350;
+    margin-bottom: 15px;
+    margin-top: 20px; /* 增加与上方的距离 */
+    margin-bottom: 50px;
+}
+.plan-features div {
+    margin-bottom: 10px; /* 为每一行增加10px的下边距 */
+}
+/* Price display */
+.price {
+    font-size: 36px; /* 增大字体 */
+    font-weight: 400;
+    margin-bottom: 30px; /* 增加价格与按钮之间的距离 */
+    font-family: Arial, sans-serif;
+    color: #000000; /* 改为黑色，使其更清晰 */
+}
+
+.btn-buy {
+    display: inline-block;
+    padding: 15px 15px;
+    background-color: #0c3c5e; 
+    color: #f6f8f9; 
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 100px;
+    position: relative; 
+    z-index: 2; 
+    width: 120px; 
+    height: 100px;  
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.try {
+    position: relative;
+    width: 1600px;  
+    height: 400px;  
+    background: url('./image/notebook.jpg') no-repeat center center / cover;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+.try::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 51, 102, 0.6); 
+    z-index: 2;
+}
+.try::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(47, 79, 79, 0.5); 
+    z-index: 1;  
+}
+.content {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;  
+    max-width: 600px;  
+    z-index: 3;
+}
+
+.content .first_line {
+    font-family: Arial, sans-serif;
+    font-size: 32px;  
+    font-weight: 400;
+    margin-bottom: 20px; 
+}
+
+.content p {
+    font-family: Arial, sans-serif;
+    font-size: 16px; 
+    font-weight: 300;
+    margin-bottom: 30px;  
+}
+
+button {
+    font-family: Arial, sans-serif;
+    padding: 15px 30px;
+    background-color: yellow;  
+    color: black;  
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.footer {
+    background-color: #1d2530;  
+    color: white;  
+    font-family: 'Arial', sans-serif; 
+    padding: 20px 50px;  
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    width: 1600px; 
+    height: 260px;
+    margin: 0 auto;  
+    flex-direction: column; 
+    box-sizing: border-box;  
+    overflow: hidden;  
+}
+.footer-content {
+    text-align: center; 
+    width: 100%;  
+}
+.footer-content .name {
+    font-size: 20px;  
+    font-weight: 400;  
+    margin-bottom: 5px;  
+}
+
+.footer-content p {
+    font-size: 12px; 
+    margin: 5px 0;  
+}
+
+
+.social-icons {
+    display: flex;  
+    justify-content: center;  
+    width: 100%;
+    margin-top: 50px;  
+}
+
+.social-icons a {
+    margin: 0 20px;  
+}
+
+.social-icons img {
+    width: 36px;  
+    height: auto; 
 }
