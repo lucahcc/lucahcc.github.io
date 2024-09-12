@@ -1,15 +1,15 @@
 nav.navbar {
-    position: absolute; /* 静态导航栏，绝对定位 */
+    position: absolute; 
     top: 0;
-    left: 50%; /* 定位到页面的中心 */
-    transform: translateX(-50%); /* 将导航栏水平居中 */
-    width: 1600px; /* 固定宽度 */
-    height: 80px; /* 固定高度 */
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 1600px;
+    height: 80px; 
     background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 100px; /* 左右内边距 */
+    padding-left: 100px; 
     padding-right: 100px;
     font-family: Arial, sans-serif;
 }
@@ -29,7 +29,7 @@ nav.navbar {
     margin-right: 100px;
     display: flex;
     gap: 20px;
-    justify-content: flex-end; /* 使菜单项靠右对齐 */
+    justify-content: flex-end; 
     padding-right: 20px;
     font-family: Arial, sans-serif;
 }
@@ -54,35 +54,35 @@ body {
 }
 
 .main_body {
-    position: absolute; /* 静态布局下使用绝对定位 */
-    top: 80px; /* 确保背景在导航栏下面，80px 是导航栏的高度 */
-    left: 50%; /* 将背景居中对齐 */
-    transform: translateX(-50%); /* 水平居中 */
+    position: absolute; 
+    top: 80px; 
+    left: 50%; 
+    transform: translateX(-50%); 
     display: flex;
-    justify-content: flex-start; /* 静态布局，从左对齐内容 */
-    align-items: center; /* 垂直居中内容 */
-    height: 853px; /* 背景的固定高度 */
-    width: 1600px; /* 背景的固定宽度 */
-    background-image: url('image/lawyer.jpg'); /* 背景图片 */
-    background-size: contain; /* 背景图像的固定大小，不做自适应 */
-    background-position: center center; /* 背景居中显示 */
-    background-repeat: no-repeat; /* 背景图片不重复 */
-    padding-left: 160px; /* 固定的左边距 */
-    overflow: hidden; /* 隐藏溢出内容 */
-    z-index: 0; /* 层级优先，使其位于导航栏下面 */
-    position: relative; /* 为伪元素提供相对定位 */
-    box-sizing: border-box; /* 让内边距包含在宽度和高度之内 */
+    justify-content: flex-start; 
+    align-items: center;
+    height: 853px; 
+    width: 1600px; 
+    background-image: url('image/lawyer.jpg'); 
+    background-size: contain; 
+    background-position: center center; 
+    background-repeat: no-repeat; 
+    padding-left: 160px; 
+    overflow: hidden; 
+    z-index: 0; 
+    position: relative; 
+    box-sizing: border-box; 
 }
 .main_body::before {
-    content: ""; /* 添加伪元素的内容 */
-    position: absolute; /* 绝对定位 */
-    top: 0; /* 定位到右上角 */
-    right: 0; /* 定位到右上角 */
-    width: 20%; /* 灰色蒙版的宽度，根据需求调整 */
-    height: 100%; /* 灰色蒙版的高度，根据需求调整 */
-    background-color: rgba(211, 211, 211, 0.03); /* 浅灰色蒙版，透明度为0.5 */
-    z-index: 1; /* 确保蒙版在背景图片之上 */
-    pointer-events: none; /* 允许点击透过蒙版 */
+    content: ""; 
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    width: 20%; 
+    height: 100%; 
+    background-color: rgba(211, 211, 211, 0.03); 
+    z-index: 1; 
+    pointer-events: none; 
 }
 
 .main_content {
@@ -327,26 +327,25 @@ body {
     font-size: 16px;
     margin-bottom: 20px;
     font-family: Arial, sans-serif;
-    line-height: 1.5; /* 调整行间距，让内容看起来更有间距 */
+    line-height: 1.5; 
 }
 .plan-title {
     font-family: Arial, sans-serif;
     font-size: 24px;
     font-weight: 350;
     margin-bottom: 15px;
-    margin-top: 20px; /* 增加与上方的距离 */
+    margin-top: 20px; 
     margin-bottom: 50px;
 }
 .plan-features div {
-    margin-bottom: 10px; /* 为每一行增加10px的下边距 */
+    margin-bottom: 10px; 
 }
-/* Price display */
 .price {
-    font-size: 36px; /* 增大字体 */
+    font-size: 36px; 
     font-weight: 400;
-    margin-bottom: 30px; /* 增加价格与按钮之间的距离 */
+    margin-bottom: 30px;
     font-family: Arial, sans-serif;
-    color: #000000; /* 改为黑色，使其更清晰 */
+    color: #000000; 
 }
 
 .btn-buy {
