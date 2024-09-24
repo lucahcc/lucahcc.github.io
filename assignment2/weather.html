@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-content">
+            <h1>Weather Search</h1>
+            <p>Fill out the form to get weather info!</p>
+        </div>
+        <div class="form-inner"> 
+            <form id="weatherForm">
+                <div class="form-group required">
+                    <label for="street">Street</label>
+                    <input type="text" id="street" name="street" required>
+                </div>
+                <div class="row"> <!-- Row for city and state fields -->
+                    <div class="form-group col-50 required">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group col-50 required">
+                        <label for="state">State</label>
+                        <select id="state" name="state" required>
+                            <option value="">Select your state</option>
+                            <!-- List all states here -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="autoDetect" style="display: inline;">Want us to auto-detect your location?</label>
+                    <label for="autoDetect" style="display: inline;">Check here</label>
+                    <input type="checkbox" id="autoDetect" name="autoDetect" style="margin-left: 10px;">
+                </div>                
+                <div class="form-buttons">
+                    <button type="submit" id="submitBtn">SUBMIT</button>
+                    <button type="button" id="clearBtn" onclick="resetForm()">CLEAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
