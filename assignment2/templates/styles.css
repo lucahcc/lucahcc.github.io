@@ -9,7 +9,7 @@ body {
     height: 100vh; /* 使容器在视口中垂直居中 */
 }
 .container {
-    background-image: url('./image/banner.jpg'); /* 背景图片 */
+    background-image: url('../image//banner.jpg'); /* 背景图片 */
     background-size: cover;
     background-position: center;
     border-radius: 8px;
