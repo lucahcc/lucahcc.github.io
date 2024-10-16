@@ -160,12 +160,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });*/
 
 // 获取每日天气数据
-async function fetchWeatherData(lat, lng) {
+function fetchWeatherData(lat, lng) {
     try {
-        const response = await fetch(`/weather/daily?lat=${lat}&lng=${lng}`);
+        const response =  fetch(`/weather/daily?lat=${lat}&lng=${lng}`);
         if (!response.ok) throw new Error('Failed to fetch daily weather data');
 
-        const data = await response.json();
+        const data =  response.json();
         displayWeatherDataForDay(data.data.timelines[0].intervals);
     } catch (error) {
         console.error('Weather API error:', error);
@@ -174,12 +174,12 @@ async function fetchWeatherData(lat, lng) {
 }
 
 // 获取每小时天气数据
-async function fetchHourlyWeatherData(lat, lng) {
+function fetchHourlyWeatherData(lat, lng) {
     try {
-        const response = await fetch(`/weather/hourly?lat=${lat}&lng=${lng}`);
+        const response =  fetch(`/weather/hourly?lat=${lat}&lng=${lng}`);
         if (!response.ok) throw new Error('Failed to fetch hourly weather data');
 
-        const data = await response.json();
+        const data = response.json();
         hourlyWeatherData = data.data.timelines[0].intervals || [];
         console.log('Hourly Weather Data:', hourlyWeatherData);
     } catch (error) {
