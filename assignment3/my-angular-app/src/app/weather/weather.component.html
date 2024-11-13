@@ -1,0 +1,451 @@
+<div class="container mt-5 form-container">
+    <div class="card shadow-sm">
+      <div class="card-header bg-light text-center">
+        <h2 class="fw-bold">Weather Search <i class="bi bi-cloud-sun"></i></h2>
+      </div>
+  
+      <div class="card-body">
+        <form [formGroup]="weatherForm" (ngSubmit)="onSubmit()" id="weatherForm">
+          <!-- 第一行：街道输入 -->
+          <div class="mb-3 row">
+            <label for="street" class="col-sm-3 col-form-label fw-bold text-end">
+              Street<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <input
+              #streetInput
+                type="text"
+                class="form-control"
+                id="street"
+                name="street"
+                placeholder="Enter street"
+                required
+                formControlName="street"
+              />
+              <div class="invalid-feedback">Please enter a valid street.</div>
+            </div>
+          </div>
+  
+          <!-- 第二行：城市输入 -->
+          <div class="mb-3 row">
+            <label for="city" class="col-sm-3 col-form-label fw-bold text-end">
+              City<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9 position-relative">
+              <input
+                #cityInput
+                type="text"
+                class="form-control"
+                id="city"
+                name="city"
+                placeholder="Enter city"
+                required
+                formControlName="city"
+                (input)="cityInput_auto($event)"
+              />
+              <!-- 城市建议列表 -->
+              <ul *ngIf="citySuggestion.length > 0" class="list-group position-absolute w-100 shadow">
+                <li 
+                  *ngFor="let suggestion of citySuggestion" 
+                  (click)="selectCity(suggestion)"
+                  class="list-group-item list-group-item-action"
+                >
+                  {{ suggestion }}
+                </li>
+              </ul>
+              <div class="invalid-feedback">Please enter a valid city.</div>
+            </div>
+          </div>
+          
+          
+          <!-- 第三行：州选择 -->
+          <div class="mb-3 row">
+            <label for="state" class="col-sm-3 col-form-label fw-bold text-end">
+              State<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <input
+                #stateInput
+                type="text"
+                list="stateOptions"
+                id="state"
+                class="form-control"
+                placeholder="Select or type your state"
+                required
+                formControlName="state"
+              />
+              <datalist id="stateOptions">
+                <option value="Alabama">
+                <option value="Alaska">
+                <option value="Arizona">
+                <option value="Arkansas">
+                <option value="California">
+                <option value="Colorado">
+                <option value="Connecticut">
+                <option value="Delaware">
+                <option value="District Of Columbia">
+                <option value="Florida">
+                <option value="Georgia">
+                <option value="Hawaii">
+                <option value="Idaho">
+                <option value="Illinois">
+                <option value="Indiana">
+                <option value="Iowa">
+                <option value="Kansas">
+                <option value="Kentucky">
+                <option value="Louisiana">
+                <option value="Maine">
+                <option value="Maryland">
+                <option value="Massachusetts">
+                <option value="Michigan">
+                <option value="Minnesota">
+                <option value="Mississippi">
+                <option value="Missouri">
+                <option value="Montana">
+                <option value="Nebraska">
+                <option value="Nevada">
+                <option value="New Hampshire">
+                <option value="New Jersey">
+                <option value="New Mexico">
+                <option value="New York">
+                <option value="North Carolina">
+                <option value="North Dakota">
+                <option value="Ohio">
+                <option value="Oklahoma">
+                <option value="Oregon">
+                <option value="Pennsylvania">
+                <option value="Rhode Island">
+                <option value="South Carolina">
+                <option value="South Dakota">
+                <option value="Tennessee">
+                <option value="Texas">
+                <option value="Utah">
+                <option value="Vermont">
+                <option value="Virginia">
+                <option value="Washington">
+                <option value="West Virginia">
+                <option value="Wisconsin">
+                <option value="Wyoming">
+            </datalist>
+              <div class="invalid-feedback">Please select a state.</div>
+            </div>
+          </div>
+  
+          <hr class="horizontal-line" />
+          <!-- 复选框：自动检测位置 -->
+          <div class="form-check mb-3 d-flex justify-content-center">
+            <span class="fw-bold me-2">Autodetect Location</span>
+            <input
+              #currentLocation
+              class="form-check-input ms-2 me-2"
+              type="checkbox"
+              id="currentLocation"
+              formControlName="currentLocation"
+            />
+            <label class="form-check-label fw-bold" for="currentLocation">
+              Current Location
+            </label>
+          </div>
+  
+          <!-- 按钮 -->
+          <div class="d-flex justify-content-center mb-3">
+            <button
+              #submitBtn
+              type="submit"
+              id="submitBtn"
+              class="btn btn-primary me-3"
+              disabled
+              (click)="onSubmit()"
+            >
+              <i class="bi bi-search"></i> Search
+            </button>
+            <button #clearBtn type="button" id="clearBtn" class="btn btn-outline-secondary" (click)="onClear()">
+              <i class="bi bi-list-nested"></i> Clear
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-3">
+    <!-- 使用 Bootstrap 的 btn-sm 类来缩小按钮尺寸 -->
+    <div class="btn-group btn-sm" role="group">
+      <button 
+        type="button" 
+        class="btn btn" 
+        [ngClass]="{'btn-primary text-white': isResultsSelected, 'btn-outline-primary': !isResultsSelected}"
+        (click)="selectTab('results')">
+        Results
+      </button>
+      <button 
+        type="button" 
+        class="btn btn" 
+        [ngClass]="{'btn-primary text-white': !isResultsSelected, 'btn-outline-primary': isResultsSelected}"
+        (click)="selectTab('favorites')">
+        Favorites
+      </button>
+    </div>
+  </div>
+  <div *ngIf="isLoading" class="progress mt-3">
+    <div
+      class="progress-bar progress-bar-striped progress-bar-animated"
+      role="progressbar"
+      [style.width.%]="progress"
+      [attr.aria-valuenow]="progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      Loading...
+    </div>
+  </div>
+<div id="weatherResults" class="container mt-4" *ngIf="!iserror && isResultsSelected" [@slideAnimation]="iserror ? null : weatherPaneState">
+  <div class="d-flex justify-content-between align-items-center">
+      <h3 class="text-center flex-grow-1 m-0">
+        Forecast at <span>{{ selectedCity || 'City' }}</span>, <span>{{ selectedState || 'State' }}</span>
+      </h3>
+      <!-- <button class="btn btn-outline-warning ms-3" (click)="addToFavorites()">
+        <i class="bi bi-star-fill"></i> Add to Favorites
+      </button> -->
+      <button 
+        class="btn btn-outline-secondary ms-3 shadow-none favorite-button" 
+        (click)="toggleFavorite()"
+        (mouseover)="isHovering = true"
+        (mouseleave)="isHovering = false">
+        <i 
+          class="bi" 
+          [ngClass]="{
+            'bi-star': !isFavorite,
+            'bi-star-fill text-warning': isFavorite
+          }">
+        </i> 
+      </button>
+      <button
+    class="btn btn-link ms-3 text-decoration-none"
+    (click)="showFirstDayDetails()"
+  >
+    Details
+  </button>
+    </div>
+      <div class="d-flex justify-content-end">
+        <ul class="nav nav-tabs mt-4" id="weatherTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="day-view-tab"
+              data-bs-toggle="tab"
+              href="#day-view"
+              role="tab"
+              aria-controls="day-view"
+              aria-selected="true"
+              >Day view</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="daily-temp-chart-tab"
+              data-bs-toggle="tab"
+              href="#daily-temp-chart"
+              role="tab"
+              aria-controls="daily-temp-chart"
+              aria-selected="false"
+              (click)="onDailyTempTabClick()"
+              >Daily Temp. Chart</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="meteogram-tab"
+              data-bs-toggle="tab"
+              href="#meteogram"
+              role="tab"
+              aria-controls="meteogram"
+              aria-selected="false"
+              (click)="onMeteogramTabClick()"
+              >Meteogram</a
+            >
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Tabs Content -->
+      <div class="tab-content mt-3" id="weatherTabsContent">
+        <!-- Day View Tab -->
+        <div
+          class="tab-pane fade show active"
+          id="day-view"
+          role="tabpanel"
+          aria-labelledby="day-view-tab"
+        >
+          <!-- <table class="table table-white" id="day-view-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Temp. High(°F)</th>
+                <th>Temp. Low(°F)</th>
+                <th>Wind Speed(mph)</th>
+              </tr>
+            </thead>
+            <tbody #tableBody>
+
+            </tbody>
+          </table> -->
+          <table class="table table-white" id="day-view-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Temp. High(°F)</th>
+                <th>Temp. Low(°F)</th>
+                <th>Wind Speed(mph)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="day-row" *ngFor="let day of dailyData; let index = index" (click)="showDetails(day)">
+                <td>{{ index + 1 }}</td>
+                <td class="date-text">{{ formatDate(day.startTime) }}</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img [src]="getWeatherDetails(day.values.weatherCode).icon" alt="Weather Icon" class="weather-icon" style="width: 30px; height: 30px;">
+                    <div class="weather_name ms-2">{{ getWeatherDetails(day.values.weatherCode).name }}</div>
+                  </div>
+                </td>
+                <td>{{ day.values.temperatureMax }}°F</td>
+                <td>{{ day.values.temperatureMin }}°F</td>
+                <td>{{ day.values.windSpeed }} mph</td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+
+      <!-- Daily Temp Chart Tab -->
+          <div
+          class="tab-pane fade"
+          id="daily-temp-chart"
+          role="tabpanel"
+          aria-labelledby="daily-temp-chart-tab"
+
+          >
+          <div id="dailyTempChartContainer"  #dailyTempChartContainer style="height: 600px;">
+            <!-- Highcharts daily temperature chart will be rendered here -->
+          </div>
+          </div>
+
+          <!-- Meteogram Tab -->
+          <div
+          class="tab-pane fade"
+          id="meteogram"
+          role="tabpanel"
+          aria-labelledby="meteogram-tab"
+          >
+          <div id="meteogramContainer" #meteogramContainer style="height: 600px;">
+            <!-- Highcharts meteogram (hourly weather) chart will be rendered here -->
+          </div>
+          </div>
+        
+      </div>
+      
+    </div>
+    <div
+    #errorAlert
+    *ngIf="iserror && isResultsSelected"
+    class="alert alert-danger text-center mt-3 "
+    role="alert"
+    id="errorAlert">
+    An error occurred. Please try again later.
+  </div>
+
+
+<div #detailsPane class="container mt-4" [@slideAnimation]="detailsPaneState">
+  <button
+  class="btn btn-light d-flex justify-content-start align-items-center mb-3"
+  (click)="toggleView(false)"
+>
+  <i class="bi bi-chevron-left ms-2"></i>
+  List
+</button>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="m-0">{{ selectedDate }}</h3>
+  <button (click)="tweetWeather()" class="btn btn-outline-dark">
+    <i class="bi bi-twitter-x"></i>
+  </button>
+</div>
+    <div>
+      <table class="table table-striped">
+        <tbody>
+          <tr *ngFor="let detail of detailsList">
+            <td>{{ detail.label }}</td>
+            <td>{{ detail.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="mapContainer" style="height: 400px;" #mapContainer></div>
+  </div>
+    
+    <!-- <div #detailsPane class="container mt-4 d-none">
+      <button (click)="toggleView(false)" class="btn btn-secondary mb-3">Back</button>
+      <h3 class="text-center">{{ selectedDate }}</h3>
+      <div id="detailsTableContainer">
+        <table class="table table-striped" id="details-table">
+          <tbody>
+            <tr *ngFor="let detail of detailsList">
+              <td>{{ detail.label }}</td>
+              <td>{{ detail.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="mapContainer" style="height: 400px;" #mapContainer></div>
+      <button id="tweetButton" class="btn btn-primary mt-3">Tweet</button>
+    </div>     -->
+    <div
+      class="alert alert-warning text-center mt-3
+      >"
+      role="alert"
+      id="noRecordsAlert"
+      #noRecordsAlert
+      *ngIf="favorites.length === 0 && !isResultsSelected"
+    >
+      Sorry. No records found.
+    </div>
+    <div *ngIf="favorites.length > 0 && !isResultsSelected && !isClearing" class="container mt-4">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>City</th>
+          <th>State</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let favorite of favorites; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <a (click)="loadWeather(favorite.city, favorite.state)" style="cursor: pointer; color: blue; text-decoration: underline;">
+              {{ favorite.city }}
+            </a>
+          </td>
+          <td>
+            <a (click)="loadWeather(favorite.city, favorite.state)" style="cursor: pointer; color: blue; text-decoration: underline;">
+              {{ favorite.state }}
+            </a>
+          </td>
+          <td>
+            <button class="btn btn-link text-danger" (click)="removeFromFavorites(favorite.city, favorite.state)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <!-- 没有收藏记录时的提示信息 -->
+
+    

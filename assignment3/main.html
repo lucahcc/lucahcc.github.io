@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Search</title>
+
+    <!-- 引入本地的 Bootstrap 和 Bootstrap Icons 样式 -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/windbarb.js"></script>
+
+
+    <script src="https://code.highcharts.com/modules/datagrouping.js"></script>
+    <script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <!-- 引入本地的 Bootstrap JS 和 Popper.js -->
+    <script src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+</head>
+<body class="bg-white">
+    <div class="container mt-5 form-container">
+        <div class="card shadow-sm">
+            <div class="card-header bg-light text-center">
+                <h2 class="fw-bold">Weather Search <i class="bi bi-cloud-sun"></i></h2>
+            </div>
+
+            <div class="card-body">
+                <form id="weatherForm">
+                    <!-- 第一行：街道输入 -->
+                    <div class="mb-3 row">
+                        <label for="street" class="col-sm-3 col-form-label fw-bold text-end">Street<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="street" name="street" placeholder="Enter street" required>
+                            <div class="invalid-feedback">Please enter a valid street.</div>
+                        </div>
+                    </div>
+
+                    <!-- 第二行：城市输入 -->
+                    <div class="mb-3 row">
+                        <label for="city" class="col-sm-3 col-form-label fw-bold text-end">City<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Enter city" required>
+                            <div class="invalid-feedback">Please enter a valid city.</div>
+                        </div>
+                    </div>
+                    
+                      
+                    
+                    
+                    
+
+                    <!-- 第三行：州选择 -->
+                    <div class="mb-3 row">
+                        <label for="state" class="col-sm-3 col-form-label fw-bold text-end">State<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" list="stateOptions" id="state" class="form-control" placeholder="Select or type your state" required>
+                            <datalist id="stateOptions">
+                                <option value="Alabama">
+                                <option value="Alaska">
+                                <option value="Arizona">
+                                <option value="Arkansas">
+                                <option value="California">
+                                <option value="Colorado">
+                                <option value="Connecticut">
+                                <option value="Delaware">
+                                <option value="District Of Columbia">
+                                <option value="Florida">
+                                <option value="Georgia">
+                                <option value="Hawaii">
+                                <option value="Idaho">
+                                <option value="Illinois">
+                                <option value="Indiana">
+                                <option value="Iowa">
+                                <option value="Kansas">
+                                <option value="Kentucky">
+                                <option value="Louisiana">
+                                <option value="Maine">
+                                <option value="Maryland">
+                                <option value="Massachusetts">
+                                <option value="Michigan">
+                                <option value="Minnesota">
+                                <option value="Mississippi">
+                                <option value="Missouri">
+                                <option value="Montana">
+                                <option value="Nebraska">
+                                <option value="Nevada">
+                                <option value="New Hampshire">
+                                <option value="New Jersey">
+                                <option value="New Mexico">
+                                <option value="New York">
+                                <option value="North Carolina">
+                                <option value="North Dakota">
+                                <option value="Ohio">
+                                <option value="Oklahoma">
+                                <option value="Oregon">
+                                <option value="Pennsylvania">
+                                <option value="Rhode Island">
+                                <option value="South Carolina">
+                                <option value="South Dakota">
+                                <option value="Tennessee">
+                                <option value="Texas">
+                                <option value="Utah">
+                                <option value="Vermont">
+                                <option value="Virginia">
+                                <option value="Washington">
+                                <option value="West Virginia">
+                                <option value="Wisconsin">
+                                <option value="Wyoming">
+                            </datalist>
+                            <div class="invalid-feedback">Please select a state.</div>
+                        </div>
+                    </div>
+
+                    <hr class="horizontal-line">
+                    <!-- 复选框：自动检测位置 -->
+                    <div class="form-check mb-3 d-flex justify-content-center">
+                        <span class="fw-bold me-2">Autodetect Location</span>
+                        <input class="form-check-input ms-2 me-2" type="checkbox" id="currentLocation">
+                        <label class="form-check-label fw-bold" for="currentLocation">Current Location</label>
+                    </div>
+
+                    <!-- 按钮 -->
+                    <div class="d-flex justify-content-center mb-3">
+                        <button type="submit" id="submitBtn" class="btn btn-primary me-3" disabled>
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                        <button type="button" id="clearBtn" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-circle"></i> Clear
+                        </button>
+                    </div>
+                                
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="container mt-5 " style="max-width: 1200px ; margin-bottom: 20px;">
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn toggle-button active me-3" id="resultsTab" onclick="toggleTabs('results')">Results</button>
+            <button type="button" class="btn toggle-button" id="favoritesTab" onclick="toggleTabs('favorites')">Favorites</button>
+    </div>
+    <div id="weatherResults" class="container mt-4 " style="display: none;">
+        
+        
+        <h3 class="text-center">Forecast at <span id="city-name">City</span>, <span id="state-name">State</span></h3>
+
+        <div class="d-flex justify-content-end">
+            <ul class="nav nav-tabs mt-4" id="weatherTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="day-view-tab" data-bs-toggle="tab" href="#day-view" role="tab" aria-controls="day-view" aria-selected="true">Day view</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="daily-temp-chart-tab" data-bs-toggle="tab" href="#daily-temp-chart" role="tab" aria-controls="daily-temp-chart" aria-selected="false">Daily Temp. Chart</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="meteogram-tab" data-bs-toggle="tab" href="#meteogram" role="tab" aria-controls="meteogram" aria-selected="false">Meteogram</a>
+                </li>
+            </ul>
+        </div>
+        
+
+        <!-- Tabs Content -->
+        <div class="tab-content mt-3" id="weatherTabsContent">
+            <!-- Day View Tab -->
+            <div class="tab-pane fade show active" id="day-view" role="tabpanel" aria-labelledby="day-view-tab">
+                <table class="table table-white" id="day-view-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Temp. High(°F)</th>
+                            <th>Temp. Low(°F)</th>
+                            <th>Wind Speed(mph)</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <!-- Data will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Daily Temp Chart Tab -->
+            <div class="tab-pane fade" id="daily-temp-chart" role="tabpanel" aria-labelledby="daily-temp-chart-tab">
+                <div id="dailyTempChartContainer" style="height: 400px;">
+                    <!-- Highcharts daily temperature chart will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Meteogram Tab -->
+            <div class="tab-pane fade" id="meteogram" role="tabpanel" aria-labelledby="meteogram-tab">
+                <div id="meteogramContainer" style="height: 400px;">
+                    <!-- Highcharts meteogram (hourly weather) chart will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-warning text-center mt-3" role="alert" style="display: none;" id="noRecordsAlert">
+        Sorry. No records found.
+    </div>
+    <div class="alert alert-danger text-center mt-3" role="alert" style="display: none;" id="errorAlert">
+        An error occurred. Please try again later.
+    </div>
+</div>
+
+    
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+    "/weather": {
+      "target": "https://backend-dot-usc-571-as3-luca.uw.r.appspot.com",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    },
+    
+    "/api": {
+      "target": "https://backend-dot-usc-571-as3-luca.uw.r.appspot.com",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+    
+  }
