@@ -1,0 +1,37 @@
+runtime: nodejs18
+service: backend
+instance_class: F2
+
+env_variables:
+  NODE_ENV: 'production'
+  PORT: '8080'
+  TOMORROW_API_KEY: '41D2qShsv5syv4rqOxhxNH3SVeytnEMS'
+  GOOGLE_API_KEY: 'AIzaSyAHtPdCJmrd4CDblo8LG2W7j7DqGcb1Opg'
+  MONGODB_URI: 'mongodb+srv://jinhehu123:Lnkj9wF2CdAwzk44@uscas3luca.gvvo7.mongodb.net/?retryWrites=true&w=majority&appName=USCAS3LUCA'
+
+handlers:
+  # 静态资源文件夹
+  - url: /libs
+    static_dir: node_modules
+
+  # 处理 API 请求
+  - url: /api/.*
+    script: auto
+
+  - url: /weather/.*
+    script: auto
+
+  # Angular 前端应用的静态文件
+  - url: /
+    static_files: my-angular-app/dist/my-angular-app/index.html
+    upload: my-angular-app/dist/my-angular-app/index.html
+
+  - url: /(.*)
+    static_files: my-angular-app/dist/my-angular-app/\1
+    upload: my-angular-app/dist/my-angular-app/(.*)
+
+automatic_scaling:
+  target_cpu_utilization: 0.65
+  max_instances: 10
+
+entrypoint: node server.js

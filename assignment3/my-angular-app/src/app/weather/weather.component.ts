@@ -716,7 +716,7 @@ fetchLocationAndStoreData(): Promise<void> {
         }
       },
       title: {
-        text: 'Temperature Range (Min Max)'
+        text: 'Temperature Range (Min, Max)'
       },
       xAxis: {
         type: 'datetime',

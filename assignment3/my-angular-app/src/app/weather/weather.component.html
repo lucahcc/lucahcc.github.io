@@ -134,7 +134,7 @@
           <hr class="horizontal-line" />
           <!-- 复选框：自动检测位置 -->
           <div class="form-check mb-3 d-flex justify-content-center">
-            <span class="fw-bold me-2">Autodetect Location</span>
+            <span class="fw-bold me-2">Autodetect Location</span><span class="text-danger">*</span>
             <input
               #currentLocation
               class="form-check-input ms-2 me-2"
@@ -224,6 +224,7 @@
     (click)="showFirstDayDetails()"
   >
     Details
+    <i class="bi bi-chevron-right"></i>
   </button>
     </div>
       <div class="d-flex justify-content-end">

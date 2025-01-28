@@ -1,0 +1,77 @@
+
+
+.form-container {
+    max-width: 1200px;
+    margin: auto;
+}
+.toggle-button {
+background-color: transparent;
+color: #007bff;
+border: none;
+}
+.toggle-button.active {
+background-color: #007bff;
+color: #fff;
+}
+.form-check-label {
+margin-left: 5px;
+}
+.horizontal-line {
+width: 100%;
+max-width: 960px;
+margin: 0 auto;
+border-top: 1px solid #171616;
+}
+.is-invalid {
+border-color: #dc3545;
+}
+.invalid-feedback {
+display: none;
+color: #dc3545;
+}
+.form-control.is-invalid + .invalid-feedback {
+display: block;
+}
+#currentLocation {
+border-color: #4b4b4b;
+}
+.form-container {
+    position: relative;
+    z-index: 1;
+}
+.favorite-button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* 按钮图标大小 */
+  .favorite-button i {
+    font-size: 20px;
+    transition: color 0.2s;
+  }
+  
+  /* 鼠标悬停时图标变为灰色 */
+  .favorite-button:hover i {
+    color: #6c757d;
+  }
+  .progress-bar {
+    background-color: #007bff; /* 蓝色 */
+    transition: width 0.5s ease; /* 平滑过渡效果 */
+  }
+  
+  .progress {
+    height: 25px; /* 调整进度条高度 */
+    border-radius: 10px; /* 圆角效果 */
+  }
+  .btn-link {
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .btn-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  .date-text {
+    color: blue; /* 设置文本颜色为蓝色 */
+    text-decoration: underline; /* 添加下划线 */
+  }

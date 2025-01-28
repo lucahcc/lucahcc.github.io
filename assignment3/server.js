@@ -5,8 +5,8 @@ const axios = require('axios');
 const path = require('path');
 const { MongoClient } = require('mongodb');
 const app = express();
-const TOMORROW_API_KEY = '41D2qShsv5syv4rqOxhxNH3SVeytnEMS';
-const googleApiKey = 'AIzaSyAHtPdCJmrd4CDblo8LG2W7j7DqGcb1Opg';
+const TOMORROW_API_KEY = '';
+const googleApiKey = '';
 app.use(express.static(path.join(__dirname)));
 const uri = 'mongodb+srv://jinhehu123:Lnkj9wF2CdAwzk44@uscas3luca.gvvo7.mongodb.net/?retryWrites=true&w=majority&appName=USCAS3LUCA';
 

@@ -34,130 +34,6 @@ function clearWeatherDetails() {
         }
     });
 }
-/*
-document.addEventListener('DOMContentLoaded', function () {
-    const checkbox = document.getElementById('autoDetect');
-    const streetInput = document.getElementById('street');
-    const cityInput = document.getElementById('city');
-    const stateSelect = document.getElementById('state');
-    const submitButton = document.getElementById('submitBtn');
-    let autoDetectedLocation = null;
-
-    // 监听复选框的变化
-    checkbox.addEventListener('change', async function () {
-        if (this.checked) {
-            disableFields();
-            await fetchLocationAndStoreData(); // 确保位置获取完成
-        } else {
-            enableFields();
-        }
-    });
-
-    // 表单提交事件处理函数
-    submitButton.addEventListener('click', async function (event) {
-        event.preventDefault();
-
-        if (checkbox.checked) {
-            if (autoDetectedLocation) {
-                const [lat, lng] = autoDetectedLocation;
-                const city = cityInput.dataset.detectedCity;
-                const state = stateSelect.dataset.detectedState;
-                const address = `${city}, ${state}, USA`;
-
-                // 获取天气数据
-                await fetchWeatherData(lat, lng);
-                await fetchHourlyWeatherData(lat, lng);
-            } else {
-                alert('Error: Unable to detect location. Please try again.');
-            }
-        } else {
-            const street = streetInput.value;
-            const city = cityInput.value;
-            const state = stateSelect.value;
-
-            if (!street || !city || !state) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-
-            const address = `${street}, ${city}, ${state}`;
-            await fetchGeocodeAndWeather(address); // 等待地理编码完成
-        }
-    });
-
-    // 获取自动检测的位置并保存
-    async function fetchLocationAndStoreData() {
-        try {
-            const response = await fetch('https://ipinfo.io?token=b7d947caec3ca6');
-            const data = await response.json();
-            const [lat, lng] = data.loc.split(',');
-
-            // 保存经纬度和检测的城市、州
-            autoDetectedLocation = [lat, lng];
-            cityInput.dataset.detectedCity = data.city;
-            stateSelect.dataset.detectedState = data.region;
-        } catch (error) {
-            console.error('Error fetching location:', error);
-            enableFields(); // 如果获取位置失败，重新启用输入框
-        }
-    }
-
-    // 禁用输入字段
-    function disableFields() {
-        streetInput.disabled = true;
-        cityInput.disabled = true;
-        stateSelect.disabled = true;
-
-        // 清空输入框的值
-        streetInput.value = '';
-        cityInput.value = '';
-        stateSelect.value = '';
-    }
-
-    // 启用输入字段并重置状态
-    function enableFields() {
-        streetInput.disabled = false;
-        cityInput.disabled = false;
-        stateSelect.disabled = false;
-
-        // 重置输入框和自动检测信息
-        streetInput.value = '';
-        cityInput.value = '';
-        stateSelect.value = '';
-        autoDetectedLocation = null;
-
-        // 清除保存的 data 属性
-        delete cityInput.dataset.detectedCity;
-        delete stateSelect.dataset.detectedState;
-    }
-
-    // 使用地理编码 API 获取经纬度并查询天气
-    async function fetchGeocodeAndWeather(address) {
-        try {
-            const apiKey = 'YOUR_GOOGLE_API_KEY'; // 替换为你的 Google API 密钥
-            const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
-
-            const response = await fetch(geocodeUrl);
-            const data = await response.json();
-
-            if (data.status === "OK") {
-                const location = data.results[0].geometry.location;
-                const lat = location.lat;
-                const lng = location.lng;
-
-                await fetchWeatherData(lat, lng);
-                await fetchHourlyWeatherData(lat, lng);
-            } else {
-                alert('No records found for the provided address.');
-            }
-        } catch (error) {
-            console.error('Geocoding error:', error);
-            alert('Error: Unable to get geocoding information.');
-        }
-    }
-
-    
-});*/
 
 // 获取每日天气数据
 function fetchWeatherData(lat, lng) {
@@ -306,7 +182,7 @@ document.getElementById('weatherForm').addEventListener('submit', function(event
 });
 
 function fetchGeocodeAndWeather(address) {
-    var apiKey = 'AIzaSyBfBwt8lwVEEiBTbBoG8QREw3R5mDC9Kls';  // 你的Google Geocoding API密钥
+    var apiKey = '';  // 你的Google Geocoding API密钥
     var geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
 
     // 调用Google Maps Geocoding API获取经纬度
@@ -914,44 +790,3 @@ function getWeatherDetails(weatherCode) {
     // 如果有，则返回图标路径和名称，否则返回默认值
     return details ? details : { icon: '../image/default_icon.svg', name: 'Unknown Weather' };
 }
-/*
-function fetchWeatherData(lat, lng) {
-    var apiKey = '41D2qShsv5syv4rqOxhxNH3SVeytnEMS';  // 替换为你的Tomorrow.io API密钥
-    var fields = 'temperatureMax,temperatureMin,weatherCode,windSpeed,humidity,sunriseTime,sunsetTime,visibility,moonPhase,cloudCover,uvIndex,pressureSurfaceLevel,temperature,precipitationType,precipitationProbability'; // 根据需要添加或删除字段
-    var weatherUrl = `https://api.tomorrow.io/v4/timelines?location=${lat},${lng}&fields=${fields}&timesteps=1d&units=imperial&timezone=America/Los_Angeles&apikey=${apiKey}`;
-    console.log(lat,lng);
-    fetch(weatherUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.data && data.data.timelines) {
-                var dailyWeather = data.data.timelines[0].intervals; // 获取所有天的天气数据
-                console.log('Weather data for 7 days:', dailyWeather);
-
-                // 显示每天的天气数据，这里你可以选择如何显示，如更新一个表格或天气卡片
-                displayWeatherDataForDay(dailyWeather);
-            } else {
-                displayNoRecordsFound();
-            }
-        })
-        .catch(error => {
-            console.error('Weather API error:', error);
-            alert('Error: Unable to retrieve weather data.');
-        });
-}
-function fetchHourlyWeatherData(lat, lng) {
-    const apiKey = '41D2qShsv5syv4rqOxhxNH3SVeytnEMS';
-    const fields = 'temperature,humidity,pressureSurfaceLevel,windSpeed,windDirection';
-    const url = `https://api.tomorrow.io/v4/timelines?location=${lat},${lng}&fields=${fields}&timesteps=1h&units=imperial&timezone=America/Los_Angeles&apikey=${apiKey}`;
-    console.log(lat,lng);
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.data && data.data.timelines) {
-                hourlyWeatherData = data.data.timelines[0].intervals; // 存储每小时数据
-                console.log('Hourly Weather Data:', hourlyWeatherData);
-            } else {
-                
-            }
-        })
-        .catch(error => console.error('Hourly Weather API error:', error));
-}*/
