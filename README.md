@@ -86,12 +86,4 @@ Download the github zip file. I already upload it.
 
 ---
 
-## Screenshots 📸
-
-- **Search Form**: A clean and intuitive form for weather search.
-- **Day View**: Daily weather details displayed in a card layout.
-- **Charts**: Interactive visualizations for temperature trends.
-- **Favorites**: Manage your favorite locations effortlessly.
-
----
 
